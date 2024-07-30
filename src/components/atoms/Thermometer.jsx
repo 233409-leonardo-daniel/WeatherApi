@@ -6,7 +6,7 @@ const ThermometerContainer = styled.div`
   align-items: flex-end;
   height: 150px;
   width: 30px;
-  background-color: #e0e0e0; /* Gris Claro para el contenedor */
+  background-color: #e0e0e0; 
   border-radius: 15px;
   position: relative;
   margin: 10px 0;
@@ -15,7 +15,7 @@ const ThermometerContainer = styled.div`
 const ThermometerLevel = styled.div`
   height: ${({ temperature }) => Math.min(100, temperature)}%;
   width: 100%;
-  background-color: ${({ temperature }) => temperature > 25 ? '#f57c00' : '#4a90e2'}; /* Naranja para calor, Azul Claro para frío */
+  background-color: ${({ temperature }) => temperature > 25 ? '#f57c00' : '#4a90e2'}; 
   border-radius: 15px 15px 0 0;
   position: absolute;
   bottom: 0;
@@ -24,7 +24,7 @@ const ThermometerLevel = styled.div`
 const ThermometerCap = styled.div`
   width: 100%;
   height: 20px;
-  background-color: ${({ temperature }) => temperature > 25 ? '#f57c00' : '#4a90e2'}; /* Naranja para calor, Azul Claro para frío */
+  background-color: ${({ temperature }) => temperature > 25 ? '#f57c00' : '#4a90e2'}; 
   border-radius: 50%;
   position: absolute;
   top: -20px;

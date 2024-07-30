@@ -112,7 +112,7 @@ const Home = () => {
         </Section>
         {showFavorites && (
           <Section>
-            <h2 style={{ color: '#003366' }}>Favoritos</h2> {/* Azul Oscuro para el título */}
+            <h2 style={{ color: '#003366' }}>Favoritos</h2> 
             <FavoritesContainer>
               <FavoriteList favorites={favorites} toggleFavorite={toggleFavorite} />
             </FavoritesContainer>
