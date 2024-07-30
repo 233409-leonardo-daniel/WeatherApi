@@ -9,12 +9,13 @@ const API_KEY = 'D6G9Wae9pnfYTS0qzToG1ABVrlx3SD8Z';
 const BASE_URL = 'https://api.tomorrow.io/v4/weather/forecast';
 
 const Header = styled.header`
-  background-color: #00008B;
+  background-color: #003366; 
   padding: 20px;
   text-align: center;
   font-size: 50px;
   font-weight: bold;
   height: 170px;
+  color: #ffffff;
 `;
 
 const Container = styled.div`
@@ -22,6 +23,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  padding: 0px;
 `;
 
 const ControlsContainer = styled.div`
@@ -30,8 +32,9 @@ const ControlsContainer = styled.div`
   justify-content: flex-start;
   width: 100%;
   max-width: 1800px;
+  margin-top: 0; 
   margin-bottom: 20px;
-  gap: 10px; /* Espacio entre el campo de búsqueda y el botón */
+  gap: 10px;
 `;
 
 const CardsContainer = styled.div`
@@ -109,7 +112,7 @@ const Home = () => {
         </Section>
         {showFavorites && (
           <Section>
-            <h2>Favorites</h2>
+            <h2 style={{ color: '#003366' }}>Favoritos</h2> {/* Azul Oscuro para el título */}
             <FavoritesContainer>
               <FavoriteList favorites={favorites} toggleFavorite={toggleFavorite} />
             </FavoritesContainer>

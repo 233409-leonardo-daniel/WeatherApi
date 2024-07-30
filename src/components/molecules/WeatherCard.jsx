@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import Checkbox from '../atoms/CheckBox';
-import Thermometer from '../atoms/Thermometer'; // Importa el componente del termómetro
+import Thermometer from '../atoms/Thermometer';
 
 const Card = styled.div`
-  border: 1px solid rgb(67, 139, 248);
+  border: 1px solid #4a90e2; 
   border-radius: 8px;
   padding: 16px;
   margin: 16px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgb(67, 139, 248);
+  background-color: #ffffff; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const DailyWeatherContainer = styled.div`
@@ -22,14 +22,14 @@ const DayWeather = styled.div`
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 10px;
-  background-color: #fff;
+  background-color: #f5f5f5; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
+  color: #2d2d2d; 
 `;
 
 const WeatherCard = ({ city, weather, toggleFavorite, isFavorite }) => {
-  // Función para obtener el nombre del día de la semana
   const getDayName = (dateStr) => {
     const date = new Date(dateStr);
     return new Intl.DateTimeFormat('es-ES', { weekday: 'long' }).format(date);
@@ -37,7 +37,7 @@ const WeatherCard = ({ city, weather, toggleFavorite, isFavorite }) => {
 
   return (
     <Card>
-      <h2>{city}</h2>
+      <h2 style={{ color: '#003366' }}>{city}</h2> 
       <Checkbox 
         label="Favorite" 
         checked={isFavorite} 
@@ -52,7 +52,7 @@ const WeatherCard = ({ city, weather, toggleFavorite, isFavorite }) => {
               <p><strong>Hora:</strong> {day.time}</p>
               <p><strong>Temperatura:</strong> {day.temperature} °C</p>
             </div>
-            <Thermometer temperature={day.temperature} /> {/* Muestra el termómetro */}
+            <Thermometer temperature={day.temperature} />
           </DayWeather>
         ))}
       </DailyWeatherContainer>
