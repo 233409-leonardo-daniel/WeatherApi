@@ -1,9 +1,16 @@
 import React from 'react';
-import WeatherCard from '../molecules/WeatherCard.jsx';
+import WeatherCard from '../molecules/WeatherCard';
+import styled from 'styled-components';
+
+const FavoritesContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+`;
 
 const FavoriteList = ({ favorites, toggleFavorite }) => {
   return (
-    <div>
+    <FavoritesContainer>
       {favorites.length > 0 ? (
         favorites.map((data, index) => (
           <WeatherCard 
@@ -17,7 +24,7 @@ const FavoriteList = ({ favorites, toggleFavorite }) => {
       ) : (
         <p>No favorite cities selected.</p>
       )}
-    </div>
+    </FavoritesContainer>
   );
 };
 

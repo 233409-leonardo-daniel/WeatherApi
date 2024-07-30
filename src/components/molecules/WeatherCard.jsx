@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-
-
-
+import Checkbox from '../atoms/CheckBox';
+import Thermometer from '../atoms/Thermometer'; // Importa el componente del termómetro
 
 const Card = styled.div`
   border: 1px solid rgb(67, 139, 248);
@@ -13,7 +12,29 @@ const Card = styled.div`
   box-shadow: 0 4px 8px rgb(67, 139, 248);
 `;
 
-const WeatherCard = ({ city, weather,toggleFavorite,isFavorite }) => {
+const DailyWeatherContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+`;
+
+const DayWeather = styled.div`
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+`;
+
+const WeatherCard = ({ city, weather, toggleFavorite, isFavorite }) => {
+  // Función para obtener el nombre del día de la semana
+  const getDayName = (dateStr) => {
+    const date = new Date(dateStr);
+    return new Intl.DateTimeFormat('es-ES', { weekday: 'long' }).format(date);
+  };
+
   return (
     <Card>
       <h2>{city}</h2>
@@ -22,16 +43,19 @@ const WeatherCard = ({ city, weather,toggleFavorite,isFavorite }) => {
         checked={isFavorite} 
         onChange={() => toggleFavorite(city)} 
       />
-      {weather.map((day, index) => (
-        <div key={index}>
-          <p><strong>Fecha:</strong> {day.date}</p>
-          <p><strong>Hora:</strong> {day.time}</p>
-          <p><strong>Resumen:</strong> {day.summary}</p>
-          <p><strong>Temperatura:</strong> {day.temperature} °C</p>
-          <p><strong>Precipitación:</strong> {day.precipitation} mm</p>
-          <hr />
-        </div>
-      ))}
+      <h3>Resumen de la semana</h3>
+      <DailyWeatherContainer>
+        {weather.map((day, index) => (
+          <DayWeather key={index}>
+            <div>
+              <p><strong>Fecha:</strong> {getDayName(day.date)}, {day.date}</p>
+              <p><strong>Hora:</strong> {day.time}</p>
+              <p><strong>Temperatura:</strong> {day.temperature} °C</p>
+            </div>
+            <Thermometer temperature={day.temperature} /> {/* Muestra el termómetro */}
+          </DayWeather>
+        ))}
+      </DailyWeatherContainer>
     </Card>
   );
 };

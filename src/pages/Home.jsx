@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import CitySearch from '../components/molecules/CitySearch';
 import WeatherCard from '../components/molecules/WeatherCard';
 import FavoriteList from '../components/organisms/FavoriteList';
-import styled from "styled-components";
+import CustomButton from '../components/atoms/Button';
+import styled from 'styled-components';
 
 const API_KEY = 'D6G9Wae9pnfYTS0qzToG1ABVrlx3SD8Z';
 const BASE_URL = 'https://api.tomorrow.io/v4/weather/forecast';
@@ -18,31 +19,49 @@ const Header = styled.header`
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
   margin-top: 20px;
 `;
 
-const LeftSection = styled.div`
-  flex: 1;
-  margin-right: 20px;
-`;
-const RightSection = styled.div`
-  flex: 1;
+const ControlsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 1800px;
+  margin-bottom: 20px;
+  gap: 10px; /* Espacio entre el campo de búsqueda y el botón */
 `;
 
+const CardsContainer = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+const Section = styled.div`
+  width: 100%;
+  max-width: 1800px;
+  margin-bottom: 20px;
+`;
+
+const FavoritesContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+`;
 
 const Home = () => {
   const [city, setCity] = useState('');
-  const [currentWeather,setCurrentWeather] = useState(null);
+  const [currentWeather, setCurrentWeather] = useState(null);
   const [favorites, setFavorites] = useState([]);
+  const [showFavorites, setShowFavorites] = useState(false);
 
-  
   const addCity = async () => {
     try {
       const response = await fetch(`${BASE_URL}?location=${city}&apikey=${API_KEY}`);
       const weatherData = await response.json();
 
-      
       const dailyWeather = weatherData.timelines.daily.map(day => ({
         date: new Date(day.time).toLocaleDateString(),
         time: new Date(day.time).toLocaleTimeString(),
@@ -70,25 +89,35 @@ const Home = () => {
     <div>
       <Header>App de clima</Header>
       <Container>
-        <LeftSection>
+        <ControlsContainer>
           <CitySearch city={city} setCity={setCity} addCity={addCity} />
+          <CustomButton onClick={() => setShowFavorites(!showFavorites)}>
+            {showFavorites ? 'Ocultar Favoritos' : 'Mostrar Favoritos'}
+          </CustomButton>
+        </ControlsContainer>
+        <Section>
           {currentWeather && (
-            <WeatherCard  
-              city={currentWeather.city} 
-              weather={currentWeather.weather} 
-              toggleFavorite={toggleFavorite} 
-              isFavorite={favorites.some(fav => fav.city === currentWeather.city)}
-            />
+            <CardsContainer>
+              <WeatherCard
+                city={currentWeather.city}
+                weather={currentWeather.weather}
+                toggleFavorite={toggleFavorite}
+                isFavorite={favorites.some(fav => fav.city === currentWeather.city)}
+              />
+            </CardsContainer>
           )}
-        </LeftSection>
-        <RightSection>
-          <h2>Favorites</h2>
-          <FavoriteList favorites={favorites} toggleFavorite={toggleFavorite} />
-        </RightSection>
+        </Section>
+        {showFavorites && (
+          <Section>
+            <h2>Favorites</h2>
+            <FavoritesContainer>
+              <FavoriteList favorites={favorites} toggleFavorite={toggleFavorite} />
+            </FavoritesContainer>
+          </Section>
+        )}
       </Container>
     </div>
   );
 };
-
 
 export default Home;
